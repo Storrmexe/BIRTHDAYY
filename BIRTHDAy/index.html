@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Page</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Basic Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #52001f; /* Dark background color */
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Background fire animation */
+      .fire-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("fire.png") no-repeat center center;
+        background-size: cover;
+        animation: fireAnimation 3s ease-in-out infinite alternate;
+        z-index: -1; /* Behind the gift box */
+      }
+
+      @keyframes fireAnimation {
+        0% {
+          opacity: 0.5;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Centered content */
+      .center-content {
+        position: relative;
+        text-align: center;
+      }
+
+      /* Style for the animated gift box */
+      .gift-box-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        background-color: #f702b9;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease;
+        animation: bounce 0.5s ease-in-out infinite alternate; /* Increased animation speed */
+        box-shadow: 0px 0px 90px rgb(82, 10, 141); /* Glow effect */
+      }
+
+      .gift-box {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background-color: #df86b7;
+        border-radius: 5px;
+        bottom: 0;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); /* Glow effect */
+      }
+
+      .gift-box-lid {
+        position: absolute;
+        width: 120px;
+        height: 60px;
+        background-color: #e67e22;
+        border-radius: 5px 5px 0 0;
+        top: -60px; /* Lid is hidden by default */
+        transition: top 0.5s ease-in-out;
+        box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); /* Glow effect */
+      }
+
+      .gift-box.open .gift-box-lid {
+        top: 0; /* Lid opens when the box is clicked */
+      }
+
+      .gift-box-ribbon {
+        position: absolute;
+        width: 10px;
+        height: 120px;
+        background-color: #d35400;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .gift-box-ribbon.horizontal {
+        height: 10px;
+        width: 120px;
+      }
+
+      /* Animation for the box bouncing slightly */
+      @keyframes bounce {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(10px);
+        }
+      }
+
+      /* Gradient Glow for Happy Birthday text */
+      #message h1 {
+        font-size: 5rem;
+        color: transparent;
+        background-image: linear-gradient(45deg, #ff7f50, #ff6347, #ff4500);
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-shadow: 0 0 5px rgba(209, 146, 11, 0.5),
+          0 0 10px rgba(255, 87, 34, 0.7), 0 0 15px rgba(255, 87, 34, 1);
+        opacity: 0; /* Initially hidden */
+        transform: scale(0.8); /* Initially scaled down */
+        animation: fadeInScale 0.5s ease-out forwards; /* Apply fade-in and scale animation */
+      }
+
+      /* Fade In and Scale animation */
+      @keyframes fadeInScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Message styling */
+      #message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        text-align: center;
+      }
+
+      /* Add a picture to the bottom of the page */
+      .bottom-picture {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        #message h1 {
+          font-size: 3rem;
+        }
+
+        .gift-box-container {
+          width: 120px;
+          height: 120px;
+        }
+
+        .gift-box {
+          width: 100px;
+          height: 100px;
+        }
+
+        .gift-box-lid {
+          width: 100px;
+          height: 50px;
+        }
+
+        .gift-box-ribbon {
+          width: 8px;
+          height: 100px;
+        }
+
+        .gift-box-ribbon.horizontal {
+          width: 100px;
+          height: 8px;
+        }
+
+        .bottom-picture {
+          max-width: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fire animation background -->
+    <div class="fire-background"></div>
+
+    <div class="center-content">
+      <!-- Gift Box Container with lid and ribbon -->
+      <div class="gift-box-container" id="playButton">
+        <div class="gift-box-lid"></div>
+        <div class="gift-box"></div>
+        <div class="gift-box-ribbon horizontal"></div>
+        <div class="gift-box-ribbon"></div>
+      </div>
+      <audio
+        id="birthdaySong"
+        src="double/and if a doubledecker bus! CRASHES into us..mp3"
+      ></audio>
+    </div>
+
+    <div id="message" class="hidden">
+      <h1>Happy Birthday!</h1>
+    </div>
+
+    <!-- Add a picture to the bottom of the page -->
+
+    <script>
+      document
+        .getElementById("playButton")
+        .addEventListener("click", function () {
+          const song = document.getElementById("birthdaySong");
+          const message = document.getElementById("message");
+          const giftBox = document.querySelector(".gift-box-container");
+
+          // Play the song
+          song.play();
+
+          // Hide the gift box when the message is displayed
+          giftBox.style.display = "none";
+
+          // Show the Happy Birthday message
+          message.style.display = "block";
+
+          // Keep the message visible for 10 seconds
+          setTimeout(() => {
+            message.style.display = "none";
+            giftBox.style.display = "flex"; // Show the gift box again after the message disappears
+            giftBox.classList.add("open"); // Keep the gift box lid open
+          }, 10000); // Message disappears after 10 seconds
+        });
+    </script>
+  </body>
+</html>
